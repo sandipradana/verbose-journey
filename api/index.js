@@ -18,7 +18,7 @@ app.get('/', async (req, res) => {
     res.json({ status: "ok" });
 });
 
-app.post('/api/register', async (req, res) => {
+app.post('/register', async (req, res) => {
     try {
         const { name, email, password } = req.body;
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -43,7 +43,7 @@ app.post('/api/register', async (req, res) => {
     }
 });
 
-app.post('/api/login', async (req, res) => {
+app.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body;
 
@@ -80,7 +80,7 @@ const authenticateToken = (req, res, next) => {
 };
 
 
-app.get('/api/me', authenticateToken, async (req, res) => {
+app.get('/me', authenticateToken, async (req, res) => {
     const userId = req.user.userId;
 
     try {
