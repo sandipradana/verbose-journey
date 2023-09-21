@@ -9,7 +9,7 @@ const port = 3000;
 const jwtSecret = "JwtSecret321"
 
 const pool = new Pool({
-    connectionString: "postgres://default:asPZR79inWtc@ep-tight-limit-46780570-pooler.ap-southeast-1.postgres.vercel-storage.com:5432/verceldb" + "?sslmode=require",
+    connectionString: process.env.POSTGRES_URL + "?sslmode=require",
 })
 
 app.use(bodyParser.json());
@@ -91,7 +91,7 @@ app.get('/api/me', authenticateToken, async (req, res) => {
             return res.status(404).json({ error: 'User not found' });
         }
 
-        res.json({ userId: user.id, email: user.email, name : user.name });
+        res.json({ userId: user.id, email: user.email, name: user.name });
     } catch (error) {
         console.error('Error while fetching user data:', error);
         res.status(500).json({ error: 'Internal Server Error' });
